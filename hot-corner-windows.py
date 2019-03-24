@@ -3,11 +3,8 @@ from pynput.keyboard import Key, Controller
 import collections
 import time
 
-Point = collections.namedtuple('Point', 'x y')
+Point = collections.namedtuple('Point', 'x y offset_x offset_y')
 
-offset = 20
-corner_screen_1 = Point(0, 0)
-corner_screen_2 = Point(-1920, 163)
 corner_screens = []
 delay_loop = 0.05
 activated = False
@@ -23,8 +20,11 @@ def activate_windows_tab():
 f = open("position-corner.txt", "r")
 lines = f.readlines()
 for line in lines:
-    positions_splited = line.split(",")
-    next_corner = Point(int(positions_splited[0]), int(positions_splited[1]))
+    positions_split = line.split(",")
+    positions_offset_split = line.split(";")
+    next_corner = Point(
+        int(positions_split[0]), int(positions_split[1]),
+        int(positions_offset_split[0]), int(positions_offset_split[1]))
     corner_screens.append(next_corner)
 
 
@@ -36,7 +36,7 @@ while True:
         continue
     mouse_position = pyautogui.position()
     for corner in corner_screens:
-        if mouse_position.x <= corner.x + offset and mouse_position.y <= corner.y + offset:
+        if mouse_position.x <= corner.x + corner.offset_x and mouse_position.y <= corner.y + corner.offset_y:
             activate_windows_tab()
             activated = True
 
