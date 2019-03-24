@@ -20,8 +20,10 @@ def activate_windows_tab():
 f = open("position-corner.txt", "r")
 lines = f.readlines()
 for line in lines:
-    positions_split = line.split(",")
-    positions_offset_split = line.split(";")
+    line = line.strip()
+    line = line.split(';')
+    positions_split = line[0].split(',')
+    positions_offset_split = line[1].split(",")
     next_corner = Point(
         int(positions_split[0]), int(positions_split[1]),
         int(positions_offset_split[0]), int(positions_offset_split[1]))
