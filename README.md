@@ -7,7 +7,7 @@ It simply launches the shortcut Win+Tab when the mouse hovers the area choosen i
 # Installation
 To install the required libraries to run project use the next command
 
-pip install -r example-requirements.txt
+pip install -r requirements.txt
 
 You can find a released stable version in compiled-executable folder.
 
